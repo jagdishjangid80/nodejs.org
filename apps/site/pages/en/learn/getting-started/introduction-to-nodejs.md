@@ -6,19 +6,19 @@ authors: flaviocopes, potch, MylesBorins, RomainLanz, virkt25, Trott, onel0p3z, 
 
 # Introduction to Node.js
 
-Node.js is an open-source and cross-platform JavaScript runtime environment. It is a popular tool for almost any kind of project!
+Node.js is a free and cross-platform tool that allows you to run JavaScript code outside the browser. It’s used in many types of projects.
 
-Node.js runs the V8 JavaScript engine, the core of Google Chrome, outside of the browser. This allows Node.js to be very performant.
+Node.js runs Google Chrome’s V8 JavaScript engine outside the browser, which makes it very fast.
 
-A Node.js app runs in a single process, without creating a new thread for every request. Node.js provides a set of asynchronous I/O primitives in its standard library that prevent JavaScript code from blocking and generally, libraries in Node.js are written using non-blocking paradigms, making blocking behavior the exception rather than the norm.
+A Node.js app runs in a single process and doesn’t create a new thread for every request. Instead, it uses asynchronous input/output features to avoid blocking code.
 
-When Node.js performs an I/O operation, like reading from the network, accessing a database or the filesystem, instead of blocking the thread and wasting CPU cycles waiting, Node.js will resume the operations when the response comes back.
+When Node.js performs an operation like reading from a file or database, it doesn’t stop everything. It continues running and finishes the task once the result is ready.
 
-This allows Node.js to handle thousands of concurrent connections with a single server without introducing the burden of managing thread concurrency, which could be a significant source of bugs.
+This means Node.js can handle thousands of users at once without slowing down or needing complex thread management.
 
-Node.js has a unique advantage because millions of frontend developers that write JavaScript for the browser are now able to write the server-side code in addition to the client-side code without the need to learn a completely different language.
+This makes it easier for frontend developers (who already use JavaScript) to write backend code too, without learning a new programming language.
 
-In Node.js the new ECMAScript standards can be used without problems, as you don't have to wait for all your users to update their browsers - you are in charge of deciding which ECMAScript version to use by changing the Node.js version, and you can also enable specific experimental features by running Node.js with flags.
+With Node.js, you can use the latest JavaScript features because it doesn’t depend on the user's browser. You control which version to use by choosing the Node.js version.
 
 ## An Example Node.js Application
 
@@ -39,7 +39,6 @@ const server = createServer((req, res) => {
 server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
-```
 
 ```mjs
 import { createServer } from 'node:http';
@@ -56,45 +55,34 @@ const server = createServer((req, res) => {
 server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
-```
 
-To run this snippet, save it as a `server.js` file and run `node server.js` in your terminal.
-If you use mjs version of the code, you should save it as a `server.mjs` file and run `node server.mjs` in your terminal.
+To run this code, save it as a file named server.js and run it using the command node server.js in your terminal.
+If you use the ES module version, save it as server.mjs and run it with node server.mjs.
 
-This code first includes the Node.js [`http` module](https://nodejs.org/api/http.html).
+This example uses the built-in http module in Node.js.
 
-Node.js has a fantastic [standard library](https://nodejs.org/api/), including first-class support for networking.
+Node.js has a powerful standard library, including support for network and server functions.
 
-The `createServer()` method of `http` creates a new HTTP server and returns it.
+The createServer() function makes a new web server.
 
-The server is set to listen on the specified port and host name. When the server is ready, the callback function is called, in this case informing us that the server is running.
+The server listens on the given host and port. When it starts, it runs a function to show that the server is working.
 
-Whenever a new request is received, the [`request` event](https://nodejs.org/api/http.html#http_event_request) is called, providing two objects: a request (an [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage) object) and a response (an [`http.ServerResponse`](https://nodejs.org/api/http.html#http_class_http_serverresponse) object).
+Every time the server gets a request, it triggers the request event. This gives you two objects: req (request) and res (response).
 
-Those 2 objects are essential to handle the HTTP call.
+The request object contains details like headers and data. We’re not using it in this simple example.
 
-The first provides the request details. In this simple example, this is not used, but you could access the request headers and request data.
+The response object is used to send a reply back.
 
-The second is used to return data to the caller.
+In this example:
 
-In this case with:
-
-```js
 res.statusCode = 200;
-```
+// We’re setting the HTTP status code to 200, which means success.
 
-we set the `statusCode` property to `200`, to indicate a successful response.
-
-We set the `Content-Type` header:
-
-```js
 res.setHeader('Content-Type', 'text/plain');
-```
+// We set the content type to plain text.
 
-and we close the response, adding the content as an argument to `end()`:
-
-```js
 res.end('Hello World\n');
-```
+// We send the text “Hello World” and end the response.
 
-If you haven't already done so, [download](https://nodejs.org/en/download) Node.js.
+If you haven’t already installed Node.js, you can download it from https://nodejs.org/en/download.
+
